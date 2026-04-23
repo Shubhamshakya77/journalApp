@@ -1,3 +1,6 @@
+
+C:\Users\User\IdeaProjects\Spring Boot\journalApp
+ (update project)
 name: SonarQube
 on:
   push:
@@ -33,4 +36,8 @@ jobs:
       - name: Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=journal-app-application_journalapplication
+=======
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=journal-app-application_journalapplication
+(update project)
