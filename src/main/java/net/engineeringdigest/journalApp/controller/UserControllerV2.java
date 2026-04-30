@@ -35,21 +35,25 @@ public class UserControllerV2 {
 
 
     @PutMapping
-    public ResponseEntity<?>updateUser(@RequestBody User user) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    public ResponseEntity<?> updateUser(@RequestBody User user) {
+
+        Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
+
         String userName = authentication.getName();
+
         User userInDb = userService.findByUserName(userName);
-            userInDb.setUserName(user.getUserName());
-            userInDb.setPassword(user.getPassword());
-            userService.saveNewUser(userInDb);
 
+        userInDb.setUserName(user.getUserName());
+        userInDb.setPassword(user.getPassword());
 
+        userService.saveNewUser(userInDb);
 
-         new ResponseEntity<>(HttpStatus.NO_CONTENT);
-         return ResponseEntity.ok("Update Successfully");
-
-
+        return new ResponseEntity<>("Update Successfully", HttpStatus.OK);
     }
+
+
+
     @DeleteMapping
     public ResponseEntity<?> deleteUserById(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -62,7 +66,8 @@ public class UserControllerV2 {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         WeatherResponse weatherResponse= weatherService.getWeather("Mumbai");
         String greeting="";
-        if (weatherResponse!=null){
+        if (weatherResponse!=null &&
+                weatherResponse.getCurrent() != null){
             greeting=" ,Weather feel like " + weatherResponse.getCurrent().getFeelslike();
 
         }
