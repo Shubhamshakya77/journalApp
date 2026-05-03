@@ -33,7 +33,13 @@ public class SpringSecurity {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests(request -> request
-                      .requestMatchers("/public/**").permitAll()
+                        .requestMatchers(
+                                "/public/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html",
+                                "/v3/api-docs/**",
+                                "/webjars/**"
+                        ).permitAll()
                 .requestMatchers("/journal/**","/user/**").authenticated()
               .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
